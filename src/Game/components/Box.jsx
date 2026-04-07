@@ -5,7 +5,7 @@ import { APP_WIDTH } from '../../constants';
 
 extend({ Graphics, Text, Container });
 
-const Box = () => {
+const Box = ({x, y}) => {
   const [rotation, setRotation] = useState(0);
   const [moveRight, setMoveRight] = useState(0);
   const i = useRef(0);
@@ -26,8 +26,8 @@ return (
         g.rect(0, 0, 100, 100);
         g.fill({ color: 0xff0000, alpha: 1 });
       }}
-      x={moveRight*10}
-      y={300}
+      x={x}
+      y={y}
       rotation={rotation}
       pivot={{ x: 50, y: 50 }}
     />

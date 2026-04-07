@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react"
 
-export const useInputs = () => 
+export const useInput = () => 
 {
     const keys = useRef({});
 
     useEffect(() => {
-        const onKeyDown = (e) => keys.current[e.keys] = true; 
-        const onKeyUp = (e) => keys.current[e.keys] = false;
+        const onKeyDown = (e) => keys.current[e.key] = true;
+        const onKeyUp = (e) => keys.current[e.key] = false;
         window.addEventListener('keydown', onKeyDown);
-        window.addEventListener('keyup', onKeyDown);
+        window.addEventListener('keyup', onKeyUp);
         return () => {
             window.removeEventListener('keydown', onKeyDown);
             window.removeEventListener('keyup', onKeyUp);
