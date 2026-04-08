@@ -34,10 +34,10 @@ const Player = ({ x, y, direction }) => {
 
   const getTextures = () => {
     switch (direction) {
-      case "top":    return spritesheet.animations.walkDown;
-      case "bottom": return spritesheet.animations.walkRight;
-      case "left":   return spritesheet.animations.walkUp;
-      case "right":  return spritesheet.animations.walkLeft;
+      case "top":    return spritesheet.animations.walkUp;
+      case "bottom": return spritesheet.animations.walkDown;
+      case "left":   return spritesheet.animations.walkLeft;
+      case "right":  return spritesheet.animations.walkRight;
       default:       return spritesheet.animations.walkDown;
     }
   }
