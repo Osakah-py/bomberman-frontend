@@ -16,6 +16,7 @@ const Player = ({ x, y, direction }) => {
 
         const load = async () => {
             const texture = await Assets.load(playerSprite);
+            texture.source.scaleMode = 'nearest';
             const sprtesheet = new Spritesheet(texture, playerData);
             await sprtesheet.parse();
             setSpritesheet(sprtesheet);
