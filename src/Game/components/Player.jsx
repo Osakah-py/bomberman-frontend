@@ -2,15 +2,16 @@ import { AnimatedSprite, Assets, Spritesheet } from "pixi.js";
 import { useEffect, useState, useRef } from "react";
 
 import playerSprite from '../../assets/NeoEarlyBomberman.png';
-import {playerData} from "../../assets/playerData";
+import { playerData } from "../../assets/playerData";
 
 import { extend } from "@pixi/react";
 
 extend({ AnimatedSprite });
 
-const Player = ({x, y}) => {
- const [spritesheet, setSpritesheet] = useState(null);
-const spriteRef = useRef(null);
+const Player = ({ x, y, direction }) => {
+    const [spritesheet, setSpritesheet] = useState(null);
+    const spriteRef = useRef(null);
+
     useEffect(() => {
 
         const load = async () => {
@@ -22,24 +23,36 @@ const spriteRef = useRef(null);
 
         load();
     }, []);
-  useEffect(() => {
-    if (spriteRef.current) {
-      spriteRef.current.play();
-    }
-  }, [spritesheet]);
+    useEffect(() => {
+        if (spriteRef.current) {
+            spriteRef.current.play();
+        }
+    }, [spritesheet, direction]);
+
+
     if (!spritesheet) return null;
 
-return (
-    <pixiAnimatedSprite
-      ref={spriteRef}
-      textures={spritesheet.animations.walkDown}
-      animationSpeed={0.15}
-      x={x}
-      y={y}
-      height={75}
-      width={75}
-    />
-);
+  const getTextures = () => {
+    switch (direction) {
+      case "top":    return spritesheet.animations.walkDown;
+      case "bottom": return spritesheet.animations.walkRight;
+      case "left":   return spritesheet.animations.walkUp;
+      case "right":  return spritesheet.animations.walkLeft;
+      default:       return spritesheet.animations.walkDown;
+    }
+  }
+
+    return (
+        <pixiAnimatedSprite
+            ref={spriteRef}
+            textures={getTextures()}
+            animationSpeed={0.15}
+            x={x}
+            y={y}
+            height={75}
+            width={75}
+        />
+    );
 }
 
 export default Player; 

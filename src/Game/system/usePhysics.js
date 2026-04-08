@@ -5,9 +5,10 @@ import { APP_HEIGHT, APP_WIDTH } from "../../constants";
 export const usePhysics = (keys) => {
     const [x, setX] = useState(300);
     const [y, setY] = useState(400);
-    const velocity = useRef({x: 0, y: 0})
+    const [direction, setDirection] = useState("top");
+    const velocity = useRef({ x: 0, y: 0 })
 
-    useTick ((ticker) => {
+    useTick((ticker) => {
         const speed = 3;
         const friction = 0.9;
         const bounce = 2;
@@ -42,7 +43,25 @@ export const usePhysics = (keys) => {
 
         setX(newX);
         setY(newY);
+
+        // Calcul direction 
+        if (Math.abs(velocity.current.y) > 0.1 || Math.abs(velocity.current.x) > 0.1) {
+            if (Math.abs(velocity.current.y) > Math.abs(velocity.current.x)) {
+                if (velocity.current.y < 0) {
+                    setDirection("top")
+                } else {
+                    setDirection("bottom")
+                }
+            } else {
+                if (velocity.current.x < 0) {
+                    setDirection("left")
+                } else {
+                    setDirection("right")
+                }
+
+            }
+        }
     });
 
-    return {x, y};
+    return { x, y, direction };
 }
