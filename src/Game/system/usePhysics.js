@@ -1,6 +1,6 @@
 import { useTick } from "@pixi/react";
 import { useState, useRef } from "react"
-import { APP_HEIGHT, APP_WIDTH } from "../../constants";
+import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
 
 export const usePhysics = (keys) => {
     const [x, setX] = useState(300);
@@ -9,7 +9,7 @@ export const usePhysics = (keys) => {
     const velocity = useRef({ x: 0, y: 0 })
 
     useTick((ticker) => {
-        const speed = 3;
+        const speed = 1;
         const friction = 0.9;
         const bounce = 2;
 
@@ -28,16 +28,16 @@ export const usePhysics = (keys) => {
             newX = 0;
             velocity.current.x = Math.abs(velocity.current.x) * bounce
         }
-        if (newX > APP_WIDTH) {
-            newX = APP_WIDTH;
+        if (newX > MAP_WIDTH) {
+            newX = MAP_WIDTH;
             velocity.current.x = -Math.abs(velocity.current.x) * bounce
         }
         if (newY < 0) {
             newY = 0;
             velocity.current.y = Math.abs(velocity.current.y) * bounce
         }
-        if (newY > APP_HEIGHT) {
-            newY = APP_HEIGHT;
+        if (newY > MAP_HEIGHT) {
+            newY = MAP_HEIGHT;
             velocity.current.y = -Math.abs(velocity.current.y) * bounce
         }
 
