@@ -1,4 +1,4 @@
-import  Box from "./components/Box"
+import Background from "./components/Background";
 import Player from "./components/Player";
 import { useInput } from './system/useInput';
 import { usePhysics } from './system/usePhysics';
@@ -8,6 +8,7 @@ const Game = () => {
       const {x, y, direction} = usePhysics(keys);
     return(
         <>
+        <Background />
         <Player x={x} y={y} direction={direction} />
         </>
         
