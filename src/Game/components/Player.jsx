@@ -12,11 +12,11 @@ const Player = ({ x, y, direction }) => {
     const [spritesheet, setSpritesheet] = useState(null);
     const spriteRef = useRef(null);
 
+    // Hook pour charger la texture
     useEffect(() => {
-
         const load = async () => {
             const texture = await Assets.load(playerSprite);
-            texture.source.scaleMode = 'nearest';
+            texture.source.scaleMode = 'nearest'; // pour garder l'aspect pixel art
             const sprtesheet = new Spritesheet(texture, playerData);
             await sprtesheet.parse();
             setSpritesheet(sprtesheet);
@@ -24,6 +24,7 @@ const Player = ({ x, y, direction }) => {
 
         load();
     }, []);
+    // Hook pour lancer l'animation une fois que tout est chargé. 
     useEffect(() => {
         if (spriteRef.current) {
             spriteRef.current.play();
@@ -33,6 +34,7 @@ const Player = ({ x, y, direction }) => {
 
     if (!spritesheet) return null;
 
+    // Choisir l'animation en fonction du mouvement cf usePhysics
   const getTextures = () => {
     switch (direction) {
       case "top":    return spritesheet.animations.walkUp;
@@ -42,7 +44,7 @@ const Player = ({ x, y, direction }) => {
       default:       return spritesheet.animations.walkDown;
     }
   }
-
+// on retourne simplement le sprite aux positions données
     return (
         <pixiAnimatedSprite
             ref={spriteRef}

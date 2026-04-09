@@ -8,6 +8,7 @@ extend ({Graphics})
 const CELL_SIZE = 64;
 
 const Background = () => {
+    // On utilise un CallBack pour éviter de refaire le dessin à chaque fois
     const draw = useCallback((g) => {
         g.clear();
 
