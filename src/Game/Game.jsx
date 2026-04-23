@@ -15,16 +15,8 @@ extend ({ Container })
 
 const Game = () => {
     const keys = useInput();
-    const {x, y, direction} = usePhysics(keys);
+    const {x, y, direction, bombs} = usePhysics(keys);
     const { camX, camY } = useCamera(x, y);
-    const {bombs, placeBomb } = useBombs();
-
-    useEffect(() => {
-        const onKeyDown = (e) => {
-            if (e.key === ' ') placeBomb(x, y);
-        }
-        window.addEventListener('keydown', onKeyDown);
-    }, [x, y, placeBomb])
 
     return(
         <pixiContainer x={-camX} y={-camY}>

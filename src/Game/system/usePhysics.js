@@ -1,12 +1,15 @@
 import { useTick } from "@pixi/react";
 import { useState, useRef } from "react"
 import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
+import useBombs from "./useBombs";
 
 export const usePhysics = (keys) => {
     const [x, setX] = useState(300);
     const [y, setY] = useState(400);
     const [direction, setDirection] = useState("top");
     const velocity = useRef({ x: 0, y: 0 })
+    const addBomb = useRef(false)
+    const {bombs, placeBomb } = useBombs();
 
     useTick((ticker) => {
         const speed = 1;
@@ -17,12 +20,14 @@ export const usePhysics = (keys) => {
         if (keys.current['ArrowRight']) velocity.current.x += speed;
         if (keys.current['ArrowUp']) velocity.current.y -= speed;
         if (keys.current['ArrowDown']) velocity.current.y += speed;
+        if (keys.current[' ']) addBomb.current = true;
 
         velocity.current.x *= friction;
         velocity.current.y *= friction;
 
         let newX = x + velocity.current.x * ticker.deltaTime
         let newY = y + velocity.current.y * ticker.deltaTime
+        if (addBomb.current) placeBomb(newX +50, newY+50);
 
         if (newX < 0) {
             newX = 0;
@@ -61,7 +66,9 @@ export const usePhysics = (keys) => {
 
             }
         }
+
+        addBomb.current = false;
     });
 
-    return { x, y, direction };
+    return { x, y, direction, bombs };
 }
