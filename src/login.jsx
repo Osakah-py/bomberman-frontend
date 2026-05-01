@@ -19,7 +19,7 @@ export default function Login({ setPage }) {
     event.preventDefault(); //pas de rechargement de page
     if (formData.pseudo && formData.code) {
       localStorage.setItem("user", formData.pseudo);
-      setPage("game"); //vers le jeu
+      setPage("menu"); //vers le menu
     }
   };
 
