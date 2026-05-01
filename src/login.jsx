@@ -19,7 +19,7 @@ export default function Login({ setPage }) {
     event.preventDefault(); //pas de rechargement de page
     if (formData.pseudo && formData.code) {
       localStorage.setItem("user", formData.pseudo);
-      setPage("game");
+      setPage("game"); //vers le jeu
     }
   };
 
@@ -45,7 +45,7 @@ export default function Login({ setPage }) {
 
       <button onClick={handleLogin}> Log In </button>
 
-      <p onClick={() => setPage("register")}>
+      <p onClick={() => setPage("signup")}>
         Créer un compte
       </p>
       </form>
