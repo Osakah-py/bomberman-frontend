@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "./login.css";
 
 export default function Login({ setPage }) {
   const [formData, setFormData] = useState({
@@ -24,15 +24,16 @@ export default function Login({ setPage }) {
   };
 
   return (
-    <div>
-      <h1>Connexion</h1>
-
-        <form>
+    
+    <div className="login-container">
+    <form className="login-form">
+            <h1>Connexion</h1>
       <input
         name="pseudo"
         placeholder="Pseudo"
         value={formData.pseudo}
         onChange={handleChange}
+        className="boutton2"
       />
     <br />
       <input
@@ -41,9 +42,10 @@ export default function Login({ setPage }) {
         type="password"
         value={formData.code}
         onChange={handleChange}
+        className="boutton2" 
       />
 
-      <button onClick={handleLogin}> Log In </button>
+      <button onClick={handleLogin} className="boutton"> Login </button>
 
       <p onClick={() => setPage("signup")}>
         Créer un compte
@@ -51,5 +53,6 @@ export default function Login({ setPage }) {
       </form>
 
     </div>
+    
   );
 }
