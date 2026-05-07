@@ -65,7 +65,7 @@ export default function Login({ setPage }) {
 
       <button onClick={handleLogin} className="boutton"> Login </button>
 
-      <p onClick={() => setPage("signup")}>
+      <p onClick={() => setPage("signup")} className="compte" >
         Créer un compte
       </p>
       </form>
