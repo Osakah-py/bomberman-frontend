@@ -45,6 +45,12 @@
 
 }
 
+
+.Tout_boutton2 {
+    position: relative; 
+    width: 100%;
+}
+
 .boutton2 {
     width: 100%;
     height: 45px;
@@ -52,5 +58,5 @@
     border: 2px solid black;
     outline: none;
     border-radius: 40px;
-
 }
+

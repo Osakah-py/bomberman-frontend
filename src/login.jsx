@@ -7,6 +7,7 @@ export default function Login({ setPage }) {
     code: "",
   });
 
+  const [type, setType] = useState('password'); // pour que le mode s'affiche
 
   const handleChange = (e) => { // pour que ca s'aaffiche
     setFormData((prevState) => ({
@@ -23,8 +24,18 @@ export default function Login({ setPage }) {
     }
   };
 
+  const handleToggle = () => { // mdp saffiche ou pas 
+    if (type==='password'){
+      setType('text')
+   } else {
+      setType('password')
+   }
+  }
+
+  
+
   return (
-    
+
     <div className="login-container">
     <form className="login-form">
             <h1>Connexion</h1>
@@ -36,14 +47,21 @@ export default function Login({ setPage }) {
         className="boutton2"
       />
     <br />
+      <div className="Tout_boutton2">
       <input
         name="code"
         placeholder="Code"
-        type="password"
+        type={type}
         value={formData.code}
         onChange={handleChange}
         className="boutton2" 
       />
+      <ion-icon name={type === 'password' ? "lock-closed" : "lock-open"}
+      onClick={handleToggle}
+      style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', color: 'purple', fontSize: '20px'}}>
+      </ion-icon>
+      
+      </div>
 
       <button onClick={handleLogin} className="boutton"> Login </button>
 
