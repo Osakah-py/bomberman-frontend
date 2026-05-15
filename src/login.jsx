@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./login.css";
+import axios from "axios"
+// exemple pour axios : https://medium.com/@thuvaragan20030322tt/frontend-backend-integration-using-axios-9aa2c0f1eddd
 
 export default function Login({ setPage }) {
   const [formData, setFormData] = useState({
@@ -17,12 +19,27 @@ export default function Login({ setPage }) {
   };
 
   const handleLogin = (event) => { 
-    event.preventDefault(); //pas de rechargement de page
+    event.preventDefault(); //pas de rechargement de page 
     if (formData.pseudo && formData.code) {
-      localStorage.setItem("user", formData.pseudo);
-      setPage("menu"); //vers le menu
+    //  localStorage.setItem("user", formData.pseudo);
+    //  setPage("menu"); //vers le menu
+      const params = new URLSearchParams();
+      params.append('pseudo', formData.pseudo);
+      params.append('password', formData.code);
+      axios.post('http://localhost:8080/api/seConnecter', params)
+      .then(response => {
+        localStorage.setItem("user", response.data.pseudo);
+        setPage("menu");
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Le pseudo ou  le mot de passe est incorrect.");
+      });
     }
   };
+
+
+
 
   const handleToggle = () => { // mdp saffiche ou pas 
     if (type==='password'){
