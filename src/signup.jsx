@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "./login.css";
 
 export default function Signup({ setPage }) {
   const [formData, setFormData] = useState({
@@ -36,29 +37,42 @@ export default function Signup({ setPage }) {
       alert("Remplissez tous les champs.");
     }
   };
-  return (
-    <div>
-      <h1>Inscription</h1>
 
-        <form>
+
+  const handleToggle = () => { // mdp saffiche ou pas 
+    if (type==='password'){
+      setType('text')
+   } else {
+      setType('password')
+   }
+  }
+
+  return (
+    <div className="login-container">
+        <form className="login-form">
+          <h1>Inscription</h1>
       <input
         name="pseudo"
         placeholder="Pseudo"
         value={formData.pseudo}
         onChange={handleChange}
+        className="boutton2"
       />
     <br />
+      <div className="Tout_boutton2">
       <input
         name="code"
         placeholder="Code"
         type="password"
         value={formData.code}
         onChange={handleChange}
+        className="boutton2" 
       />
+            
+      </div>
+      <button onClick={handleSignup} className="boutton"> S'inscrire </button>
 
-      <button onClick={handleSignup}> S'inscrire </button>
-
-      <p onClick={() => setPage("login")}>
+      <p onClick={() => setPage("login")} className="compte">
         Déjà un compte ? Se connecter !
       </p>
       </form>

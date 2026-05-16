@@ -38,9 +38,6 @@ export default function Login({ setPage }) {
     }
   };
 
-
-
-
   const handleToggle = () => { // mdp saffiche ou pas 
     if (type==='password'){
       setType('text')
@@ -49,7 +46,6 @@ export default function Login({ setPage }) {
    }
   }
 
-  
 
   return (
 
