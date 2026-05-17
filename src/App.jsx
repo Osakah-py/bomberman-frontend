@@ -3,6 +3,7 @@ import Login from "./login";
 import Signup from "./signup";
 import Menu from "./menu";
 import Amis from "./amis";
+import Partie from "./partie";
 import { useState } from "react";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
         {page === "signup" && <Signup setPage={setPage} />}
         {page === "menu" && <Menu setPage={setPage} />}
         {page === "amis" && <Amis setPage={setPage} />}
+        {page === "partie" && <Partie setPage={setPage} />}
     </>
   );
 }
