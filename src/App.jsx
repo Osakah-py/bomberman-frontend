@@ -8,7 +8,7 @@ import Attente from "./attente";
 import { useState } from "react";
 
 export default function App() {
-  const [page, setPage] = useState("login");
+  const [page, setPage] = useState("game");
   return (
     <>
         {page === "login" && <Login setPage={setPage} />}

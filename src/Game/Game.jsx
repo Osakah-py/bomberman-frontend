@@ -1,6 +1,8 @@
 import Background from "./components/Background";
 import Player from "./components/Player";
 import Bomb from "./components/Bomb";
+import PlayerEnnemy from "./components/PlayerEnnemy";
+
 import { useInput } from './system/useInput';
 import { usePhysics } from './system/usePhysics';
 import { useCamera } from "./system/useCamera";
@@ -25,6 +27,7 @@ const Game = () => {
             <Bomb key = {bomb.id} {...bomb} />
         ))}
         <Player x={x} y={y} direction={direction} />
+        <PlayerEnnemy x={10} y={10} direction={direction} />
         </pixiContainer>
     )
 }
