@@ -28,13 +28,13 @@ const Game = () => {
     const { send } = useSocket(2, (data) => {
         if (data.type === "player_move") {
             setOtherPlayers(prev => ({ ...prev, [data.pseudo]: data }));
-            console.log("joueur reçu:", data);
+            //console.log("joueur reçu:", data);
         }
     });
 
     // envoie ta position à chaque tick
     useTick(() => {
-        send({ type: "player_move", pseudo: "alex", x, y, direction });
+        send({ type: "player_move", pseudo: "dider", x, y, direction });
     });
     return (
         <pixiContainer x={-camX} y={-camY}>
@@ -43,11 +43,16 @@ const Game = () => {
                 <Bomb key={bomb.id} {...bomb} />
             ))}
             <Player x={x} y={y} direction={direction} />
-            <PlayerEnnemy x={10} y={10} direction={direction} />
+            {Object.values(otherPlayers).map(player => (
+                <PlayerEnnemy
+                    key={player.pseudo}
+                    x={player.x}
+                    y={player.y}
+                    direction={player.direction}
+                />
+            ))}
         </pixiContainer>
     )
 }
-
-
 
 export default Game; 
