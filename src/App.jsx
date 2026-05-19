@@ -4,6 +4,7 @@ import Signup from "./signup";
 import Menu from "./menu";
 import Amis from "./amis";
 import Partie from "./partie";
+import Attente from "./attente";
 import { useState } from "react";
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         {page === "menu" && <Menu setPage={setPage} />}
         {page === "amis" && <Amis setPage={setPage} />}
         {page === "partie" && <Partie setPage={setPage} />}
+        {page === "attente" && <Attente setPage={setPage} />}
     </>
   );
 }

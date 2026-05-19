@@ -7,26 +7,35 @@ import axios from "axios"
 export default function Partie({ setPage }) {
   const userPseudo = localStorage.getItem("user");
   const [idPartie, setidPartie] = useState(""); 
+  
 
-  // Créer une partie
-  const handleCreer = (event) => { 
-    event.preventDefault(); 
+// creer 
+const handleCreer = (event) => { 
+  event.preventDefault(); 
+  if (!idPartie || idPartie === "") { alert("il faut écrire un identifiant de partie"); 
+    return;
+  } 
 
-      if (!idPartie || idPartie === "") { alert("il faut écrire un identifiant de partie"); return;} //verifie quon acerit qlqchose
-      const params = new URLSearchParams();
-      params.append('id', idPartie);
-      axios.post(BACKEND_URL + '/api/creerPartie', params)
-      .then(response => {
-        console.log("user", response.data); //ecris dans la console, on peut verifier
-        alert("La partie a été crée")
-        setPage("game"); // rediriger vers le jeu
-      })
-      .catch(error => {
-        console.error(error);
+  const params = new URLSearchParams();
+  params.append('id', idPartie);
+  params.append('pseudo', userPseudo);
+  axios.post(BACKEND_URL + '/api/creerPartie', params)
+    .then(response => {
+      console.log("Partie créée et rejointe :", response.data);
+      alert("tu as rejoint la partie cree !");
+      localStorage.setItem("partieId", idPartie); 
+      setPage("attente"); 
+    })
+    .catch(error => {
+      console.error(error);
+      if (error.response && error.response.status === 409) {
+        alert("Cet identifiant de partie existe déjà !");
+      } else {
         alert("Erreur lors de la création de la partie.");
-      });
-    
-  };
+      }
+    });
+};
+
 
     // Rejoindre une partie
   const handleRejoindre = (event) => { 
@@ -39,8 +48,9 @@ export default function Partie({ setPage }) {
       .then(response => {
         console.log("Tu rejoins la partie", response.data); 
         alert("Tu as rejoint la partie ! ")
-        localStorage.setItem("idPartie", idPartie); 
-        setPage("game"); // rediriger vers le jeu
+        localStorage.setItem("partieId", idPartie); 
+        //setPage("game"); // rediriger vers le jeu
+        setPage("attente");
       })
       .catch(error => {
         console.error(error);

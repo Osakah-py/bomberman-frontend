@@ -12,9 +12,7 @@ export default function Menu({ setPage }) {
         {/*<button onClick={() => setPage("game")}> Partie </button>*/}
         <button onClick={() => setPage("partie")}> Rejoindre/Créer une partie ! </button>
         <button onClick={() => setPage("amis")}> Mes Amis </button>
-                <button onClick={() => {localStorage.removeItem("user"); setPage("login");}}> Déconnexion </button>
-
-
+        <button onClick={() => {localStorage.removeItem("user"); setPage("login");}}> Déconnexion </button>
       </div>
     </div>
      );
