@@ -36,6 +36,7 @@ const Bomb = ({x, y, exploding}) => {
 
 
     useTick ((ticker) => {
+        if (exploding) return;
         time.current += ticker.deltaTime * PULSE_SPEED;
         setScale (1 + Math.abs(Math.sin(time.current * 0.05)));
     });

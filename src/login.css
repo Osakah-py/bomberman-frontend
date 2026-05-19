@@ -34,10 +34,12 @@
 
 .login-form {
     width: 500px;
-    height: 400px;
+    height: 450;
     font-family: "Pixelify Sans";
-    background-color: rgba(255, 192, 203, 0.9  ); 
+    /*background-color: rgba(255, 192, 203, 0.9  ); */
     border: 2px solid rgba(255, 255, 255, .2);
+    background-color: rgba(255, 192, 203, 0.4); /* beaucoup plus transparent */
+    backdrop-filter: blur(8px);
     color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
@@ -50,7 +52,7 @@
 .login-form h1 {
     color: #fff ;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: rgb(255, 62, 255);
+    -webkit-text-stroke-color: rgb(197, 50, 241);
     font-size: 80px;
 
 }
@@ -65,8 +67,9 @@
 }
 
 .boutton:hover {
-    background-color: rgba(128, 0, 128, 0.5); 
+    background-color: rgba(135, 46, 203, 0.5);
     cursor: pointer;
+    color: #fff;
 }
 
 
@@ -78,14 +81,19 @@
 .boutton2 {
     width: 100%;
     height: 45px;
-    background: pink;
-    border: 2px solid black;
+    background-color: rgb(255, 191, 202);
+    backdrop-filter: blur(7px);
+    background: transparent; 
+    border: 2px solid rgba(255, 255, 255, .2);
     outline: none;
+    color: #fff;
     border-radius: 40px;
     padding-left: 20px;   
     padding-right: 45px;
 }
-
+.boutton2::placeholder {
+    color : #fff;
+}
 .compte:hover {
     color: rgba(128, 0, 128, 0.5);
     cursor: pointer;
