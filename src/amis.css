@@ -7,45 +7,23 @@
     box-sizing: border-box;
 }
 
-.login-container {
+
+.amis-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;      
     min-height: 100vh;
+    gap: 20px;
     /*background-color: #2c3e50;*/
-    background : url('./fond3.jpg');
+    background : url('./fond5.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat:no-repeat;           
+    background-repeat:no-repeat;   
+    font-family: "Pixelify Sans";        
 }
 
 
-
-
-.login-form {
-    width: 500px;
-    height: 450;
-    font-family: "Pixelify Sans";
-    /*background-color: rgba(255, 192, 203, 0.9  ); */
-    border: 2px solid rgba(255, 255, 255, .2);
-    background-color: rgba(255, 192, 203, 0.4); /* beaucoup plus transparent */
-    backdrop-filter: blur(8px);
-    color: #fff;
-    border-radius: 10px;
-    padding: 30px 40px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 7px;
-}
-
-.login-form h1 {
-    color: #fff ;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: rgb(197, 50, 241);
-    font-size: 80px;
-
-}
 
 .boutton {
     width: 100%;
@@ -66,6 +44,7 @@
 .Tout_boutton2 {
     position: relative; 
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .boutton2 {

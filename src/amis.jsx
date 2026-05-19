@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { BACKEND_URL } from './constants'
 import axios from "axios";
+import "./amis.css";
 
-export default function Signup({ setPage }) {
+export default function Ami({ setPage }) {
   const [amis, setAmis] = useState([]);
   const [amiPseudo, setAmiPseudo] = useState("");
   const userPseudo = localStorage.getItem("user");
@@ -62,25 +63,37 @@ export default function Signup({ setPage }) {
 
       <form onSubmit={handleAjouter} > {/*ajout*/}
         <h2> Ajouter un ami !</h2>
+      <div className="Tout_boutton2">
       <input
+      className="boutton2"
         placeholder="Pseudo de votre ami"
         value={amiPseudo}
         onChange={(event) => setAmiPseudo(event.target.value)}
       />
-      <button type="submit"> Ajouter cet ami </button>
+      </div>
+      <div className="Tout_boutton2">
+          <button type="submit" className="boutton"> Ajouter cet ami </button>
+      </div>
+      <div className="Tout_boutton2">
+        <button onClick={() => setPage("menu")} className="boutton"> Retour au menu ! </button>
+      </div>
       </form>
 
-      <div> {/*voir liste d'amis + on supprime*/}
+      <div className="liste-amis"> {/*voir liste d'amis + on supprime*/}
         <h2> Votre liste d'amis !</h2>
-      <ul> 
-        {amis.map((relation, index) => {
-        let ami1;
-        if (relation.pseudo1 === userPseudo) { ami1 = relation.pseudo2;} else { ami1 = relation.pseudo1;}
-        return (
-          <li  key={index}> {ami1} <button onClick={() => handleSup(ami1)}> Supprimer </button> </li>
-        );
-        })}
-      </ul>
+        {amis.length === 0 ? (
+          <p className="message-vide">Vous n'avez pas encore d'amis....</p>
+        ) : (
+        <ul> 
+          {amis.map((relation, index) => {
+          let ami1;
+          if (relation.pseudo1 === userPseudo) { ami1 = relation.pseudo2;} else { ami1 = relation.pseudo1;}
+          return (
+           <li  key={index}> {ami1} <button onClick={() => handleSup(ami1)}> Supprimer </button> </li>
+           );
+           })}
+        </ul>
+        )}
       </div>
 
     </div>
