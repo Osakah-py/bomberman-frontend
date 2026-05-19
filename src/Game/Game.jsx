@@ -34,7 +34,7 @@ const Game = () => {
 
     // envoie ta position à chaque tick
     useTick(() => {
-        send({ type: "player_move", pseudo: "dider", x, y, direction });
+        send({ type: "player_move", pseudo: "michel", x, y, direction });
     });
     return (
         <pixiContainer x={-camX} y={-camY}>
