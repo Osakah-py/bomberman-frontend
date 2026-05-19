@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BACKEND_URL } from './constants'
 import axios from "axios";
 import "./login.css";
 
@@ -24,7 +25,7 @@ export default function Signup({ setPage }) {
       const params = new URLSearchParams();
       params.append('pseudo', formData.pseudo);
       params.append('password', formData.code);
-      axios.post('http://localhost:8080/api/creerCompte', params)
+      axios.post(BACKEND_URL + '/api/creerCompte', params)
         .then(response => {
           localStorage.setItem("user", response.data.pseudo);
           setPage("login");

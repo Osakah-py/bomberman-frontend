@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BACKEND_URL } from './constants'
 import "./login.css";
 import axios from "axios"
 // exemple pour axios : https://medium.com/@thuvaragan20030322tt/frontend-backend-integration-using-axios-9aa2c0f1eddd
@@ -26,7 +27,7 @@ export default function Login({ setPage }) {
       const params = new URLSearchParams();
       params.append('pseudo', formData.pseudo);
       params.append('password', formData.code);
-      axios.post('http://localhost:8080/api/seConnecter', params)
+      axios.post(BACKEND_URL + '/api/seConnecter', params)
         .then(response => {
           localStorage.setItem("user", response.data.pseudo);
           setPage("menu");
