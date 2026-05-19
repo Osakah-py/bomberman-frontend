@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { BACKEND_URL } from './constants'
 import axios from "axios";
 
 export default function Signup({ setPage }) {
