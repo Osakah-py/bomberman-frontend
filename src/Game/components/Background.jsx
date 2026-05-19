@@ -1,13 +1,30 @@
-import { Graphics } from "pixi.js";
+import { Graphics, Sprite, Assets, Texture } from "pixi.js";
 import { extend } from "@pixi/react";
 import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 
-extend ({Graphics})
+import wallImg from '../../assets/wall.jpg'
+
+extend ({Graphics, Sprite })
 
 const CELL_SIZE = 50;
 
+const WALLS = [
+  [2, 2], [2, 3], [5, 1], [7, 4],
+];
+
 const Background = () => {
+
+    const [wallTexture, setWallTexture] = useState(null);
+    
+    useEffect(() => {
+        const load = async () => {
+          const texture = await Assets.load(wallImg);
+          texture.source.scaleMode = 'nearest';
+          setWallTexture(texture);
+        }
+        load();
+    }, []);
     // On utilise un CallBack pour éviter de refaire le dessin à chaque fois
     const draw = useCallback((g) => {
         g.clear();
@@ -27,7 +44,20 @@ const Background = () => {
         }
     }, []);
 
-    return <pixiGraphics draw={draw} />;
+    return (    
+    <pixiContainer>
+      <pixiGraphics draw={draw} />
+      {wallTexture && WALLS.map(([col, row]) => (
+        <pixiSprite
+          key={`${col}-${row}`}
+          texture={wallTexture}
+          x={col * CELL_SIZE}
+          y={row * CELL_SIZE}
+          width={CELL_SIZE}
+          height={CELL_SIZE}
+        />
+      ))}
+    </pixiContainer>);
 }
 
 export default Background;

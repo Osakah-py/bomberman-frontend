@@ -52,8 +52,8 @@ const PlayerEnnemy = ({ x, y, direction }) => {
             animationSpeed={0.15}
             x={x}
             y={y}
-            height={75}
-            width={75}
+            height={50}
+            width={50}
         />
     );
 }
