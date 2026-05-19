@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
-import { BACKEND_URL } from "../../constants";
+import { BACKEND_SOCKET } from "../../constants";
 
 export const useSocket = (partieId, onMessage) => {
   const ws = useRef(null);
 
   useEffect(() => {
-    ws.current = new WebSocket(BACKEND_URL + `/ws/game`);
+    ws.current = new WebSocket(BACKEND_SOCKET + `/api/ws/game`);
 
     ws.current.onopen = () => {
       console.log("WebSocket connecté !");
