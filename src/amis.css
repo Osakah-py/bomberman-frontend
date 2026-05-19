@@ -12,15 +12,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;      
+    align-items: center;
     min-height: 100vh;
     gap: 20px;
     /*background-color: #2c3e50;*/
-    background : url('./fond5.jpg');
+    background: url('./fond5.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat:no-repeat;   
-    font-family: "Pixelify Sans";        
+    background-repeat: no-repeat;
+    font-family: "Pixelify Sans";
 }
 
 
@@ -42,7 +42,7 @@
 
 
 .Tout_boutton2 {
-    position: relative; 
+    position: relative;
     width: 100%;
     margin-bottom: 15px;
 }
@@ -52,18 +52,28 @@
     height: 45px;
     background-color: rgb(255, 191, 202);
     backdrop-filter: blur(7px);
-    background: transparent; 
+    background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     outline: none;
     color: #fff;
     border-radius: 40px;
-    padding-left: 20px;   
+    padding-left: 20px;
     padding-right: 45px;
 }
+
 .boutton2::placeholder {
-    color : #fff;
+    color: #fff;
 }
+
 .compte:hover {
     color: rgba(128, 0, 128, 0.5);
     cursor: pointer;
+}
+
+.liste-amis {
+    border: 2px solid rgba(255, 255, 255, .2);
+    background-color: rgba(255, 192, 203, 0.4);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: 20px 30px;
 }
