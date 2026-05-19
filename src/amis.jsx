@@ -13,7 +13,7 @@ export default function Signup({ setPage }) {
   const consulterAmis = () => { 
     const params = new URLSearchParams();
     params.append('pseudo', userPseudo);
-    axios.get('http://localhost:8080/api/consulterAmis', { params })
+    axios.get(BACKEND_URL + '/api/consulterAmis', { params })
       .then(response => {
         setAmis(response.data);
       })
@@ -29,7 +29,7 @@ export default function Signup({ setPage }) {
       const params = new URLSearchParams();
       params.append('pseudo', userPseudo); 
       params.append('amiPseudo', amiPseudo);
-      axios.post('http://localhost:8080/api/ajouterAmi', params)
+      axios.post(BACKEND_URL + '/api/ajouterAmi', params)
       .then(response => {
         setAmiPseudo(""); 
         consulterAmis();
@@ -44,7 +44,7 @@ export default function Signup({ setPage }) {
       const params = new URLSearchParams();
       params.append('pseudo', userPseudo); 
       params.append('amiPseudo', amisup); // lami quon va éliminer
-      axios.post('http://localhost:8080/api/supprimerAmi', params)
+      axios.post(BACKEND_URL + '/api/supprimerAmi', params)
       .then(response => {
         consulterAmis();
         alert("Cet ami a été supprimé.");

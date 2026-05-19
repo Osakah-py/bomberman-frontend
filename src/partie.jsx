@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BACKEND_URL } from './constants'
 import "./login.css";
 import axios from "axios"
 
@@ -14,7 +15,7 @@ export default function Partie({ setPage }) {
       if (!idPartie || idPartie === "") { alert("il faut écrire un identifiant de partie"); return;} //verifie quon acerit qlqchose
       const params = new URLSearchParams();
       params.append('id', idPartie);
-      axios.post('http://localhost:8080/api/creerPartie', params)
+      axios.post(BACKEND_URL + '/api/creerPartie', params)
       .then(response => {
         console.log("user", response.data); //ecris dans la console, on peut verifier
         alert("La partie a été crée")
@@ -34,7 +35,7 @@ export default function Partie({ setPage }) {
       const params = new URLSearchParams();
       params.append('partieId', idPartie);
       params.append("pseudo", userPseudo);
-      axios.post('http://localhost:8080/api/rejoindrePartie', params)
+      axios.post(BACKEND_URL + '/api/rejoindrePartie', params)
       .then(response => {
         console.log("Tu rejoins la partie", response.data); 
         alert("Tu as rejoint la partie ! ")
