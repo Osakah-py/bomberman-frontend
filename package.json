@@ -11,10 +11,8 @@
   },
   "dependencies": {
     "@pixi/react": "^8.0.5",
-<<<<<<< HEAD
-=======
     "@rolldown/binding-win32-x64-msvc": "^1.0.0-rc.10",
->>>>>>> 90dcc2e (salle d'attente)
+
     "axios": "^1.16.1",
     "pixi.js": "^8.17.1",
     "react": "^19.2.4",
