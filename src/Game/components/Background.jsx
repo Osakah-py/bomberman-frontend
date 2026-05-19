@@ -4,6 +4,7 @@ import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
 import { useCallback, useState, useEffect } from "react";
 
 import wallImg from '../../assets/wall.jpg'
+import woodImg from '../../assets/wood.jpg'
 
 extend ({Graphics, Sprite })
 
@@ -13,15 +14,29 @@ const WALLS = [
   [2, 2], [2, 3], [5, 1], [7, 4],
 ];
 
+const DESTROYABLE = [
+  [2, 3], [10, 3],
+];
+
 const Background = () => {
 
     const [wallTexture, setWallTexture] = useState(null);
+    const [woodTexture, setWoodTexture] = useState(null);
     
     useEffect(() => {
         const load = async () => {
           const texture = await Assets.load(wallImg);
           texture.source.scaleMode = 'nearest';
           setWallTexture(texture);
+        }
+        load();
+
+    }, []);
+    useEffect(() => {
+        const load = async () => {
+          const texture = await Assets.load(woodImg);
+          texture.source.scaleMode = 'nearest';
+          setWoodTexture(texture);
         }
         load();
     }, []);
@@ -51,6 +66,16 @@ const Background = () => {
         <pixiSprite
           key={`${col}-${row}`}
           texture={wallTexture}
+          x={col * CELL_SIZE}
+          y={row * CELL_SIZE}
+          width={CELL_SIZE}
+          height={CELL_SIZE}
+        />
+      ))}
+        {woodTexture && DESTROYABLE.map(([col, row]) => (
+        <pixiSprite
+          key={`${col}-${row}`}
+          texture={woodTexture}
           x={col * CELL_SIZE}
           y={row * CELL_SIZE}
           width={CELL_SIZE}
