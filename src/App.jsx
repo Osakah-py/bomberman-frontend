@@ -1,9 +1,9 @@
 import  MainApp  from "./Game/MainApp"
-import Login from "./login";
-import Signup from "./signup";
-import Menu from "./menu";
-import Amis from "./amis";
-import Partie from "./partie";
+import Login from "./Home/login";
+import Signup from "./Home/signup";
+import Menu from "./Home/menu";
+import Amis from "./Home/amis";
+import Partie from "./Home/partie";
 import Attente from "./attente";
 import { useState } from "react";
 

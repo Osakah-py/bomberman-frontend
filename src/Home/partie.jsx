@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BACKEND_URL } from './constants'
+import { BACKEND_URL } from '../constants'
 import "./login.css";
 import axios from "axios"
 

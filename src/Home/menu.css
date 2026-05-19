@@ -28,7 +28,7 @@
     grid-template-columns: repeat(3, 1fr); 
     align-items: center; 
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./bonberman.webp');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../assets/fonds/bonberman.webp');
     font-family: "Pixelify Sans";
     background-size: cover;
     background-position: center;

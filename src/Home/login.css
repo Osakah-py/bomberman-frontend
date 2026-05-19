@@ -13,7 +13,7 @@
     align-items: center;      
     min-height: 100vh;
     /*background-color: #2c3e50;*/
-    background : url('./fond3.jpg');
+    background : url('../assets/fonds/fond3.jpg');
     background-size: cover;
     background-position: center;
     background-repeat:no-repeat;           
