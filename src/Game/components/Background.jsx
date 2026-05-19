@@ -5,7 +5,7 @@ import { useCallback } from "react";
 
 extend ({Graphics})
 
-const CELL_SIZE = 64;
+const CELL_SIZE = 50;
 
 const Background = () => {
     // On utilise un CallBack pour éviter de refaire le dessin à chaque fois
