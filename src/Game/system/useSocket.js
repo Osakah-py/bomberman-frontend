@@ -5,7 +5,7 @@ export const useSocket = (partieId, onMessage) => {
   const ws = useRef(null);
 
   useEffect(() => {
-    ws.current = new WebSocket(BACKEND_SOCKET + `/api/ws/game`);
+    ws.current = new WebSocket(BACKEND_SOCKET + `/api/ws/game?pseudo=${pseudo}&partieId=${partieId}`);
 
     ws.current.onopen = () => {
       console.log("WebSocket connecté !");
