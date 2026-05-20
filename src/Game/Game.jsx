@@ -2,7 +2,7 @@ import Background from "./components/Background";
 import Player from "./components/Player";
 import Bomb from "./components/Bomb";
 import PlayerEnnemy from "./components/PlayerEnnemy";
-import { BACKEND_URL } from '../constants'
+import { BACKEND_URL, CELL_SIZE } from '../constants'
 
 import { useInput } from './system/useInput';
 import { usePhysics } from './system/usePhysics';
@@ -60,6 +60,7 @@ const Game = () => {
     const { send } = useSocket(partieId, userPseudo, (data) => {
         switch (data.action) {
             case "playerUpdate":
+                console.log(data);
                 setAllPlayers(prev => ({ ...prev, [data.pseudo]: data }));
                 if (data.pseudo === userPseudo) setMyPlayer(data);
                 break;

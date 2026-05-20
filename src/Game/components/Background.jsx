@@ -2,13 +2,13 @@ import { Graphics, Sprite, Assets, Texture } from "pixi.js";
 import { extend } from "@pixi/react";
 import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
 import { useCallback, useState, useEffect } from "react";
+import { CELL_SIZE } from "../../constants";
 
 import wallImg from '../../assets/wall.jpg'
 import woodImg from '../../assets/wood.jpg'
 
 extend({ Graphics, Sprite })
 
-const CELL_SIZE = 50;
 
 
 const Background = ({ plateau }) => {
