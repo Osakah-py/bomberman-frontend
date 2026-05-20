@@ -33,7 +33,19 @@ export default function Menu({ setPage }) {
                 <div>
                     <button onClick={() => setPage("partie")}> Rejoindre/Créer une partie ! </button>
                     <button onClick={() => setPage("amis")}> Mes Amis </button>
-                    <button onClick={() => {localStorage.removeItem("user"); setPage("login");}}> Déconnexion </button>
+                    <button onClick={() => {
+                        const params = new URLSearchParams();
+                        params.append("pseudo", utilisateur);
+                        axios.post(BACKEND_URL + '/api/seDeconnecter', params)
+                            .then(() => {
+                                localStorage.removeItem("user");
+                                setPage("login");
+                            })
+                            .catch((err) => {
+                                console.error(err);
+                                alert("Erreur lors de la déconnexion.");
+                            });
+                    }}> Déconnexion </button>
                     <button onClick={() => setConfirmation(true)} style={{ backgroundColor: "#d9534f", color: "white", marginTop: "20px" }}> 
                         Supprimer le compte 
                     </button>
