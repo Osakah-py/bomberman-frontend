@@ -9,6 +9,8 @@ export const usePhysics = (keys) => {
     const [direction, setDirection] = useState("top");
     const velocity = useRef({ x: 0, y: 0 })
     const addBomb = useRef(false)
+    const lastDirection = useRef(null);
+
     const { bombs, placeBomb } = useBombs();
 
     useTick((ticker) => {
