@@ -100,7 +100,7 @@ const Game = () => {
     return (
         <pixiContainer x={-camX} y={-camY}>
             <Background plateau={plateau} />
-            {bombs.map(bomb => (
+            {Object.values(bombs).map(bomb => (
                 <Bomb key={bomb.id} {...bomb} />
             ))}
             {Object.values(allPlayers).map(player => (
