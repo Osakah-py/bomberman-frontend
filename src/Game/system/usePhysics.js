@@ -1,41 +1,30 @@
 import { useTick } from "@pixi/react";
-import { useState, useRef } from "react"
-import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
-import useBombs from "./useBombs";
+import { useRef } from "react";
 
-export const usePhysics = (keys) => {
-    const [x, setX] = useState(300);
-    const [y, setY] = useState(400);
-    const [direction, setDirection] = useState("top");
-    const velocity = useRef({ x: 0, y: 0 })
-    const addBomb = useRef(false)
-    const lastDirection = useRef(null);
+export const usePhysics = (keys, send, pseudo) => {
+  const lastDirection = useRef(null);
+  const lastBomb = useRef(false);
 
-    const { bombs, placeBomb } = useBombs();
+  useTick(() => {
+    let direction = null; 
 
-    useTick((ticker) => {
-        const speed = 1;
-        const friction = 0.9;
-        const bounce = 2;
+    if (keys.current['ArrowLeft'])  direction = "GAUCHE";
+    if (keys.current['ArrowRight']) direction = "DROITE";
+    if (keys.current['ArrowUp'])    direction = "HAUT";
+    if (keys.current['ArrowDown'])  direction = "BAS";
 
-        if (keys.current['ArrowLeft']) direction = "GAUCHE";
-        if (keys.current['ArrowRight']) direction = "DROITE";
-        if (keys.current['ArrowUp']) direction = "HAUT";
-        if (keys.current['ArrowDown']) direction = "BAS";
-        if (keys.current[' ']) addBomb.current = true;
+    if (direction !== lastDirection.current) {
+      lastDirection.current = direction;
+      send({ action: "move", pseudo, direction: direction ?? "NONE" });
+    }
 
-        if (direction !== lastDirection.current) {
-            lastDirection.current = direction;
-            send({
-                action: "move",
-                pseudo,
-                direction: direction ?? "NONE"
-            });
-        }
-
-        if (keys.current[' ']) {
-            send({ action: "dropBomb", pseudo });
-        }
-    });
-
-}
+    // cooldown bombe pour pas spammer
+    if (keys.current[' '] && !lastBomb.current) {
+      lastBomb.current = true;
+      send({ action: "dropBomb", pseudo });
+    }
+    if (!keys.current[' ']) {
+      lastBomb.current = false;
+    }
+  });
+};
