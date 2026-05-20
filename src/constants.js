@@ -4,5 +4,5 @@ export const APP_HEIGHT = 600;
 export const MAP_WIDTH = 650;
 export const MAP_HEIGHT = 650;
 
-export const BACKEND_URL = "http://172.22.226.130:8080";
-export const BACKEND_SOCKET = "ws://172.22.226.130:8080";
+export const BACKEND_URL = "http://192.168.14.161:8080";
+export const BACKEND_SOCKET = "ws://192.168.14.161:8080";

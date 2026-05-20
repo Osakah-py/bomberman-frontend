@@ -34,6 +34,8 @@ const Game = () => {
         axios.get(BACKEND_URL + "/api/partiePlateau", { params: params })
         .then(response => {
         const plateau = response.data;
+        console.log("on a recu le plateau");
+        console.log("partieId:", partieId); 
         console.log(plateau);
       })
       .catch(error => {
