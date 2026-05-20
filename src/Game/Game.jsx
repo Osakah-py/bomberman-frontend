@@ -15,7 +15,7 @@ import useBombs from "./system/useBombs";
 
 import { useEffect } from "react";
 import { useState } from "react";
-
+import axios from "axios";
 extend({ Container })
 
 
@@ -24,7 +24,20 @@ const Game = () => {
     const { x, y, direction, bombs } = usePhysics(keys);
     const { camX, camY } = useCamera(x, y);
     const [otherPlayers, setOtherPlayers] = useState({});
+    const partieId = localStorage.getItem("partieId");
 
+    useEffect (() => {
+        const params = new URLSearchParams();
+        params.append("partieId", partieId);
+        axios.get(BACKEND_URL + "/api/partiePlateau", { params: params })
+        .then(response => {
+        const plateau = response.data;
+        console.log(plateau);
+      })
+      .catch(error => {
+        console.error("Erreur:", error);
+      });
+    }, [partieId])
     const { send } = useSocket(2, (data) => {
         if (data.type === "player_move") {
             setOtherPlayers(prev => ({ ...prev, [data.pseudo]: data }));

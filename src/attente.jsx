@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BACKEND_URL } from './constants'
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -19,7 +20,7 @@ useEffect(() => {
 const verifierEtat = () => {
       const params = new URLSearchParams();
       params.append("partieId", partieId);
-      axios.get("http://localhost:8080/api/partieEtat", { params: params })
+      axios.get(BACKEND_URL + "/api/partieEtat", { params: params })
       .then(response => {
         const partie = response.data;
         if (partie.joueurs) {setJoueurs(partie.joueurs);}
@@ -40,7 +41,7 @@ const verifierEtat = () => {
     const params = new URLSearchParams();
     params.append("partieId", partieId);
     params.append("pseudo", userPseudo);
-    axios.post("http://localhost:8080/api/quitterPartie", params)
+    axios.post(BACKEND_URL + "/api/quitterPartie", params)
       .then(() => {
         localStorage.removeItem("partieId");
         setPage("partie");
