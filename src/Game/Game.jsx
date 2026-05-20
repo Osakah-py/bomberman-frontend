@@ -26,6 +26,7 @@ const Game = () => {
 
     const [myPlayer, setMyPlayer] = useState(null);
     const [allPlayers, setAllPlayers] = useState({});
+    const [bombs, setBombs] = useState({});
 
     const userPseudo = localStorage.getItem("user");
     const partieId = localStorage.getItem("partieId");
@@ -52,6 +53,36 @@ const Game = () => {
                 setAllPlayers(prev => ({ ...prev, [data.pseudo]: data }));
                 if (data.pseudo === pseudo) setMyPlayer(data);
                 break;
+            case "bombDropped":
+                setBombs(prev => ({
+                    ...prev,
+                    [`${data.pos_case.x}-${data.pos_case.y}`]: {
+                        id: `${data.pos_case.x}-${data.pos_case.y}`,
+                        x: data.pos_case.x * CELL_SIZE,
+                        y: data.pos_case.y * CELL_SIZE,
+                        exploding: false
+                    }
+                }));
+                break;
+
+            case "bombExploded":
+                // passe en mode explosion puis supprime
+                setBombs(prev => ({
+                    ...prev,
+                    [`${data.pos_case.x}-${data.pos_case.y}`]: {
+                        ...prev[`${data.pos_case.x}-${data.pos_case.y}`],
+                        exploding: true
+                    }
+                }));
+                setTimeout(() => {
+                    setBombs(prev => {
+                        const next = { ...prev };
+                        delete next[`${data.pos_case.x}-${data.pos_case.y}`];
+                        return next;
+                    });
+                }, 800);
+                break;
+
             case "playerDisconnected":
                 setAllPlayers(prev => {
                     const next = { ...prev };
