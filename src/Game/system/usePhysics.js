@@ -14,7 +14,7 @@ export const usePhysics = (keys, send, pseudo) => {
     if (keys.current['ArrowDown'])  direction = "BAS";
 
 
-    if (direction !== lastDirection.current) {
+    if (direction) {
       lastDirection.current = direction;
       send({ action: "move", pseudo, direction: direction ?? "NONE" });
     }
