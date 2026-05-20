@@ -32,7 +32,7 @@ const Game = () => {
     const partieId = localStorage.getItem("partieId");
     const [plateau, setPlateau] = useState(null);
 
-    usePhysics(keys);
+    usePhysics(keys, send, pseudo);
     const { camX, camY } = useCamera(myPlayer?.pos_pixel?.x ?? 0,
         myPlayer?.pos_pixel?.y ?? 0);
     // Recuperation plateau
@@ -93,10 +93,7 @@ const Game = () => {
         }
     });
 
-    // envoie ta position à chaque tick
-    useTick(() => {
-        send({ type: "player_move", pseudo: "micka", x, y, direction });
-    });
+
     return (
         <pixiContainer x={-camX} y={-camY}>
             <Background plateau={plateau} />
