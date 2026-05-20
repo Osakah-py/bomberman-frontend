@@ -102,8 +102,6 @@ const Game = () => {
                 break;
         }
     });
-
-
     usePhysics(keys, send, userPseudo);
     const { camX, camY } = useCamera(myPlayer?.pos_pixel?.x ?? 0,
         myPlayer?.pos_pixel?.y ?? 0);
