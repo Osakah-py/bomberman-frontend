@@ -64,6 +64,13 @@ const Game = () => {
                 setAllPlayers(prev => ({ ...prev, [data.pseudo]: data }));
                 if (data.pseudo === userPseudo) setMyPlayer(data);
                 break;
+            case "playerConnected":
+                // create a minimal player entry so rendering can't crash
+                setAllPlayers(prev => ({
+                    ...prev,
+                    [data.pseudo]: prev[data.pseudo] ?? { pseudo: data.pseudo, pos_pixel: { x: 0, y: 0 }, pos_case: { x: 0, y: 0 }, vivant: true }
+                }));
+                break;
             case "bombDropped":
                 setBombs(prev => ({
                     ...prev,
@@ -106,17 +113,29 @@ const Game = () => {
     usePhysics(keys, send, userPseudo);
     const { camX, camY } = useCamera(myPlayer?.pos_pixel?.x ?? 0,
         myPlayer?.pos_pixel?.y ?? 0);
+    const getDirection = (dir) => {
+        if (!dir) return "bottom";
+        const d = String(dir).toLowerCase();
+        if (d.includes("haut") || d === "haut" || d === "top" || d === "up") return "top";
+        if (d.includes("bas") || d === "bas" || d === "bottom" || d === "down") return "bottom";
+        if (d.includes("gauche") || d === "gauche" || d === "left") return "left";
+        if (d.includes("droite") || d === "droite" || d === "right") return "right";
+        return "bottom";
+    }
     return (
         <pixiContainer x={-camX} y={-camY}>
             <Background plateau={plateau} />
             {Object.values(bombs).map(bomb => (
                 <Bomb key={bomb.id} {...bomb} />
             ))}
-            {Object.values(allPlayers).map(player => (
-                 player.pseudo === userPseudo
-                    ? <Player key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
-                    : <PlayerEnnemy key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
-            ))}
+            {Object.values(allPlayers).map(player => {
+                const px = player.pos_pixel?.x ?? (player.pos_case?.x ?? 0) * CELL_SIZE;
+                const py = player.pos_pixel?.y ?? (player.pos_case?.y ?? 0) * CELL_SIZE;
+                const dir = getDirection(player.deplacement ?? player.direction);
+                return player.pseudo === userPseudo
+                    ? <Player key={player.pseudo} x={px} y={py} direction={dir} />
+                    : <PlayerEnnemy key={player.pseudo} x={px} y={py} direction={dir} />
+            })}
         </pixiContainer>
     )
 }
