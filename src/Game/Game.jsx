@@ -112,7 +112,7 @@ const Game = () => {
                 <Bomb key={bomb.id} {...bomb} />
             ))}
             {Object.values(allPlayers).map(player => (
-                player.pseudo === userPseudo
+                 player.pseudo === userPseudo
                     ? <Player key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
                     : <PlayerEnnemy key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
             ))}
