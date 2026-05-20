@@ -2,6 +2,7 @@ import Background from "./components/Background";
 import Player from "./components/Player";
 import Bomb from "./components/Bomb";
 import PlayerEnnemy from "./components/PlayerEnnemy";
+import { BACKEND_URL } from '../constants'
 
 import { useInput } from './system/useInput';
 import { usePhysics } from './system/usePhysics';
@@ -16,6 +17,7 @@ import useBombs from "./system/useBombs";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+
 extend({ Container })
 
 
