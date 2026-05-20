@@ -23,10 +23,7 @@ extend({ Container })
 
 const Game = () => {
     const keys = useInput();
-    
-    usePhysics(keys);
-    const { camX, camY } = useCamera(  myPlayer?.pos_pixel?.x ?? 0,
-  myPlayer?.pos_pixel?.y ?? 0);
+
     const [myPlayer, setMyPlayer] = useState(null);
     const [allPlayers, setAllPlayers] = useState({});
 
@@ -34,6 +31,9 @@ const Game = () => {
     const partieId = localStorage.getItem("partieId");
     const [plateau, setPlateau] = useState(null);
 
+    usePhysics(keys);
+    const { camX, camY } = useCamera(myPlayer?.pos_pixel?.x ?? 0,
+        myPlayer?.pos_pixel?.y ?? 0);
     // Recuperation plateau
     useEffect(() => {
         const params = new URLSearchParams();
