@@ -41,6 +41,18 @@ const Game = () => {
             .catch(error => {
                 console.error("Erreur:", error);
             });
+
+        // récupère l'état initial des joueurs
+        axios.get(BACKEND_URL + "/api/partieEtat", { params: { partieId } })
+            .then(response => {
+                const joueurs = response.data.joueurs;
+                const playersMap = {};
+                joueurs.forEach(j => {
+                    playersMap[j.pseudo] = j;
+                });
+                setAllPlayers(playersMap);
+            })
+            .catch(error => console.error("Erreur état:", error));
     }, [partieId])
 
 
