@@ -57,7 +57,7 @@ const Game = () => {
     }, [partieId])
 
 
-    const { send } = useSocket(partieId, (data) => {
+    const { send } = useSocket(partieId, userPseudo, (data) => {
         switch (data.action) {
             case "playerUpdate":
                 setAllPlayers(prev => ({ ...prev, [data.pseudo]: data }));

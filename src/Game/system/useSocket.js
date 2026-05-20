@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { BACKEND_SOCKET } from "../../constants";
 
-export const useSocket = (partieId, onMessage) => {
+export const useSocket = (partieId, pseudo, onMessage) => {
   const ws = useRef(null);
 
   useEffect(() => {
