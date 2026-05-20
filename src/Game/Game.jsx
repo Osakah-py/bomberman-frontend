@@ -26,18 +26,15 @@ const Game = () => {
     const { x, y, direction, bombs } = usePhysics(keys);
     const { camX, camY } = useCamera(x, y);
     const [otherPlayers, setOtherPlayers] = useState({});
+
     const partieId = localStorage.getItem("partieId");
+    const [plateau, setPlateau] = useState(null);
 
     useEffect (() => {
         const params = new URLSearchParams();
         params.append("partieId", partieId);
         axios.get(BACKEND_URL + "/api/partiePlateau", { params: params })
-        .then(response => {
-        const plateau = response.data;
-        console.log("on a recu le plateau");
-        console.log("partieId:", partieId); 
-        console.log(plateau);
-      })
+        .then(response => setPlateau(response.data))
       .catch(error => {
         console.error("Erreur:", error);
       });
@@ -55,7 +52,7 @@ const Game = () => {
     });
     return (
         <pixiContainer x={-camX} y={-camY}>
-            <Background />
+            <Background plateau={plateau}/>
             {bombs.map(bomb => (
                 <Bomb key={bomb.id} {...bomb} />
             ))}

@@ -6,37 +6,41 @@ import { useCallback, useState, useEffect } from "react";
 import wallImg from '../../assets/wall.jpg'
 import woodImg from '../../assets/wood.jpg'
 
-extend ({Graphics, Sprite })
+extend({ Graphics, Sprite })
 
 const CELL_SIZE = 50;
 
-const WALLS = [
-  [2, 2], [2, 3], [5, 1], [7, 4],
-];
 
-const DESTROYABLE = [
-  [2, 3], [10, 3],
-];
+const Background = ({ plateau }) => {
+    const WALLS = [];
+    const DESTROYABLE = [];
 
-const Background = () => {
+    if (plateau) {
+        for (let row = 0; row < plateau.length; row++) {
+            for (let col = 0; col < plateau[row].length; col++) {
+                if (plateau[row][col] === "BLOC_INCASSABLE") WALLS.push([col, row]);
+                if (plateau[row][col] === "BLOC_CASSABLE") DESTROYABLE.push([col, row]);
+            }
+        }
+    }
 
     const [wallTexture, setWallTexture] = useState(null);
     const [woodTexture, setWoodTexture] = useState(null);
-    
+
     useEffect(() => {
         const load = async () => {
-          const texture = await Assets.load(wallImg);
-          texture.source.scaleMode = 'nearest';
-          setWallTexture(texture);
+            const texture = await Assets.load(wallImg);
+            texture.source.scaleMode = 'nearest';
+            setWallTexture(texture);
         }
         load();
 
     }, []);
     useEffect(() => {
         const load = async () => {
-          const texture = await Assets.load(woodImg);
-          texture.source.scaleMode = 'nearest';
-          setWoodTexture(texture);
+            const texture = await Assets.load(woodImg);
+            texture.source.scaleMode = 'nearest';
+            setWoodTexture(texture);
         }
         load();
     }, []);
@@ -44,7 +48,7 @@ const Background = () => {
     const draw = useCallback((g) => {
         g.clear();
 
-        g.rect(0,0, MAP_WIDTH, MAP_HEIGHT);
+        g.rect(0, 0, MAP_WIDTH, MAP_HEIGHT);
         g.fill(0xffffff);
 
         for (let i = 0; i < MAP_WIDTH; i += CELL_SIZE) {
@@ -59,30 +63,30 @@ const Background = () => {
         }
     }, []);
 
-    return (    
-    <pixiContainer>
-      <pixiGraphics draw={draw} />
-      {wallTexture && WALLS.map(([col, row]) => (
-        <pixiSprite
-          key={`${col}-${row}`}
-          texture={wallTexture}
-          x={col * CELL_SIZE}
-          y={row * CELL_SIZE}
-          width={CELL_SIZE}
-          height={CELL_SIZE}
-        />
-      ))}
-        {woodTexture && DESTROYABLE.map(([col, row]) => (
-        <pixiSprite
-          key={`${col}-${row}`}
-          texture={woodTexture}
-          x={col * CELL_SIZE}
-          y={row * CELL_SIZE}
-          width={CELL_SIZE}
-          height={CELL_SIZE}
-        />
-      ))}
-    </pixiContainer>);
+    return (
+        <pixiContainer>
+            <pixiGraphics draw={draw} />
+            {wallTexture && WALLS.map(([col, row]) => (
+                <pixiSprite
+                    key={`${col}-${row}`}
+                    texture={wallTexture}
+                    x={col * CELL_SIZE}
+                    y={row * CELL_SIZE}
+                    width={CELL_SIZE}
+                    height={CELL_SIZE}
+                />
+            ))}
+            {woodTexture && DESTROYABLE.map(([col, row]) => (
+                <pixiSprite
+                    key={`${col}-${row}`}
+                    texture={woodTexture}
+                    x={col * CELL_SIZE}
+                    y={row * CELL_SIZE}
+                    width={CELL_SIZE}
+                    height={CELL_SIZE}
+                />
+            ))}
+        </pixiContainer>);
 }
 
 export default Background;
