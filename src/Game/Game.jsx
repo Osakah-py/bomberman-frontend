@@ -23,26 +23,42 @@ extend({ Container })
 
 const Game = () => {
     const keys = useInput();
-    const { x, y, direction, bombs } = usePhysics(keys);
-    const { camX, camY } = useCamera(x, y);
-    const [otherPlayers, setOtherPlayers] = useState({});
+    
+    usePhysics(keys);
+    const { camX, camY } = useCamera(  myPlayer?.pos_pixel?.x ?? 0,
+  myPlayer?.pos_pixel?.y ?? 0);
+    const [myPlayer, setMyPlayer] = useState(null);
+    const [allPlayers, setAllPlayers] = useState({});
 
+    const userPseudo = localStorage.getItem("user");
     const partieId = localStorage.getItem("partieId");
     const [plateau, setPlateau] = useState(null);
 
-    useEffect (() => {
+    // Recuperation plateau
+    useEffect(() => {
         const params = new URLSearchParams();
         params.append("partieId", partieId);
         axios.get(BACKEND_URL + "/api/partiePlateau", { params: params })
-        .then(response => setPlateau(response.data))
-      .catch(error => {
-        console.error("Erreur:", error);
-      });
+            .then(response => setPlateau(response.data))
+            .catch(error => {
+                console.error("Erreur:", error);
+            });
     }, [partieId])
-    const { send } = useSocket(2, (data) => {
-        if (data.type === "player_move") {
-            setOtherPlayers(prev => ({ ...prev, [data.pseudo]: data }));
-            //console.log("joueur reçu:", data);
+
+
+    const { send } = useSocket(partieId, (data) => {
+        switch (data.action) {
+            case "playerUpdate":
+                setAllPlayers(prev => ({ ...prev, [data.pseudo]: data }));
+                if (data.pseudo === pseudo) setMyPlayer(data);
+                break;
+            case "playerDisconnected":
+                setAllPlayers(prev => {
+                    const next = { ...prev };
+                    delete next[data.pseudo];
+                    return next;
+                });
+                break;
         }
     });
 
@@ -52,18 +68,14 @@ const Game = () => {
     });
     return (
         <pixiContainer x={-camX} y={-camY}>
-            <Background plateau={plateau}/>
+            <Background plateau={plateau} />
             {bombs.map(bomb => (
                 <Bomb key={bomb.id} {...bomb} />
             ))}
-            <Player x={x} y={y} direction={direction} />
-            {Object.values(otherPlayers).map(player => (
-                <PlayerEnnemy
-                    key={player.pseudo}
-                    x={player.x}
-                    y={player.y}
-                    direction={player.direction}
-                />
+            {Object.values(allPlayers).map(player => (
+                player.pseudo === pseudo
+                    ? <Player key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
+                    : <PlayerEnnemy key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
             ))}
         </pixiContainer>
     )
