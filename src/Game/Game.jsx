@@ -47,6 +47,7 @@ const Game = () => {
             .then(response => {
                 const joueurs = response.data.joueurs;
                 const playersMap = {};
+                console.log(joueurs);
                 joueurs.forEach(j => {
                     playersMap[j.pseudo] = j;
                 });
@@ -60,7 +61,7 @@ const Game = () => {
         switch (data.action) {
             case "playerUpdate":
                 setAllPlayers(prev => ({ ...prev, [data.pseudo]: data }));
-                if (data.pseudo === pseudo) setMyPlayer(data);
+                if (data.pseudo === userPseudo) setMyPlayer(data);
                 break;
             case "bombDropped":
                 setBombs(prev => ({
@@ -113,7 +114,7 @@ const Game = () => {
                 <Bomb key={bomb.id} {...bomb} />
             ))}
             {Object.values(allPlayers).map(player => (
-                player.pseudo === pseudo
+                player.pseudo === userPseudo
                     ? <Player key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
                     : <PlayerEnnemy key={player.pseudo} x={player.pos_pixel.x} y={player.pos_pixel.y} direction={player.deplacement} />
             ))}
